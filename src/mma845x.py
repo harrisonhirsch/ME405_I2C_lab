@@ -143,8 +143,9 @@ class MMA845x:
         return it.
         @return The measured X acceleration in A/D conversion bits """
 
-        print('MMA845x clueless about X acceleration')
-        return 0
+        # print('MMA845x clueless about X acceleration')
+
+        return self.i2c.mem_read(bytearray(2), self.addr, 0x02)
 
     def get_ay_bits(self):
         """! Get the Y acceleration from the accelerometer in A/D bits and 
@@ -167,7 +168,9 @@ class MMA845x:
         that the accelerometer was correctly calibrated at the factory.
         @return The measured X acceleration in g's """
 
-        print('MMA845x uncalibrated X')
+        # print('MMA845x uncalibrated X')
+        ax_bits = self.get_ax_bits()
+
         return 0
 
     def get_ay(self):

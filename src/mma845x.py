@@ -11,56 +11,56 @@ an exercise in a mechatronics course.
 import micropython
 
 
-## The register address of the STATUS register in the MMA845x
+# The register address of the STATUS register in the MMA845x
 STATUS_REG = micropython.const (0x00)
 
-## The register address of the OUT_X_MSB register in the MMA845x
+# The register address of the OUT_X_MSB register in the MMA845x
 OUT_X_MSB = micropython.const (0x01)
 
-## The register address of the OUT_X_LSB register in the MMA845x
+# The register address of the OUT_X_LSB register in the MMA845x
 OUT_X_LSB = micropython.const (0x02)
 
-## The register address of the OUT_Y_MSB register in the MMA845x
+# The register address of the OUT_Y_MSB register in the MMA845x
 OUT_Y_MSB = micropython.const (0x03)
 
-## The register address of the OUT_Y_LSB register in the MMA845x
+# The register address of the OUT_Y_LSB register in the MMA845x
 OUT_Y_LSB = micropython.const (0x04)
 
-## The register address of the OUT_Z_MSB register in the MMA845x
+# The register address of the OUT_Z_MSB register in the MMA845x
 OUT_Z_MSB = micropython.const (0x05)
 
-## The register address of the OUT_Z_LSB register in the MMA845x
+# The register address of the OUT_Z_LSB register in the MMA845x
 OUT_Z_LSB = micropython.const (0x06)
 
-## The register address of the WHO_AM_I register in the MMA845x
+# The register address of the WHO_AM_I register in the MMA845x
 WHO_AM_I = micropython.const (0x0D)
 
-## The register address of the DATA_CFG_REG register in the MMA845x which is
+# The register address of the DATA_CFG_REG register in the MMA845x which is
 #  used to set the measurement range to +/-2g, +/-4g, or +/-8g
 XYZ_DATA_CFG = micropython.const (0x0E)
 
-## The register address of the CTRL_REG1 register in the MMA845x
+# The register address of the CTRL_REG1 register in the MMA845x
 CTRL_REG1 = micropython.const (0x2A)
 
-## The register address of the CTRL_REG2 register in the MMA845x
+# The register address of the CTRL_REG2 register in the MMA845x
 CTRL_REG2 = micropython.const (0x2B)
 
-## The register address of the CTRL_REG3 register in the MMA845x
+# The register address of the CTRL_REG3 register in the MMA845x
 CTRL_REG3 = micropython.const (0x2C)
 
-## The register address of the CTRL_REG4 register in the MMA845x
+# The register address of the CTRL_REG4 register in the MMA845x
 CTRL_REG4 = micropython.const (0x2D)
 
-## The register address of the CTRL_REG5 register in the MMA845x
+# The register address of the CTRL_REG5 register in the MMA845x
 CTRL_REG5 = micropython.const (0x2E)
 
-## Constant which sets acceleration measurement range to +/-2g
+# Constant which sets acceleration measurement range to +/-2g
 RANGE_2g = micropython.const (0)
 
-## Constant which sets acceleration measurement range to +/-2g
+# Constant which sets acceleration measurement range to +/-2g
 RANGE_4g = micropython.const (1)
 
-## Constant which sets acceleration measurement range to +/-2g
+# Constant which sets acceleration measurement range to +/-2g
 RANGE_8g = micropython.const (2)
 
 
@@ -95,10 +95,10 @@ class MMA845x:
             either @c RANGE_2g, @c RANGE_4g, or @c RANGE_8g (default: 2g)
         """
 
-        ## The I2C driver which was created by the code which called this
+        # The I2C driver which was created by the code which called this
         self.i2c = i2c
 
-        ## The I2C address at which the accelerometer is located
+        # The I2C address at which the accelerometer is located
         self.addr = address
 
         # Request the WHO_AM_I device ID byte from the accelerometer

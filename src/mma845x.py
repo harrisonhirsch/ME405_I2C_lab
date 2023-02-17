@@ -145,23 +145,23 @@ class MMA845x:
 
         # print('MMA845x clueless about X acceleration')
 
-        return self.i2c.mem_read(bytearray(2), self.addr, 0x02)
+        return self.i2c.mem_read(bytearray(2), self.addr, 0x01)
 
     def get_ay_bits(self):
         """! Get the Y acceleration from the accelerometer in A/D bits and 
         return it.
         @return The measured Y acceleration in A/D conversion bits """
 
-        print('MMA845x clueless about Y acceleration')
-        return 0
+        #print('MMA845x clueless about Y acceleration')
+        return self.i2c.mem_read(bytearray(2), self.addr, 0x03)
 
     def get_az_bits(self):
         """! Get the Z acceleration from the accelerometer in A/D bits and 
         return it.
         @return The measured Z acceleration in A/D conversion bits """
 
-        print('MMA845x clueless about Z acceleration')
-        return 0
+        #print('MMA845x clueless about Z acceleration')
+        return self.i2c.mem_read(bytearray(2), self.addr, 0x05)
 
     def get_ax(self):
         """! Get the X acceleration from the accelerometer in g's, assuming
@@ -169,9 +169,9 @@ class MMA845x:
         @return The measured X acceleration in g's """
 
         # print('MMA845x uncalibrated X')
-        ax_bits = self.get_ax_bits()
 
-        return 0
+
+        return int.from_bytes(self.get_ax_bits(), 'big')
 
     def get_ay(self):
         """! Get the Y acceleration from the accelerometer in g's, assuming
@@ -179,8 +179,8 @@ class MMA845x:
         measurement is adjusted for the range (2g, 4g, or 8g) setting.
         @return The measured Y acceleration in g's """
 
-        print('MMA845x uncalibrated Y')
-        return 0
+        #print('MMA845x uncalibrated Y')
+        return int.from_bytes(self.get_ay_bits(), 'big')
 
     def get_az(self):
         """! Get the Z acceleration from the accelerometer in g's, assuming
@@ -188,8 +188,8 @@ class MMA845x:
         measurement is adjusted for the range (2g, 4g, or 8g) setting.
         @return The measured Z acceleration in g's """
 
-        print('MMA845x uncalibrated Z')
-        return 0
+        #print('MMA845x uncalibrated Z')
+        return int.from_bytes(self.get_az_bits(), 'big')
 
     def get_accels(self):
         """! Get all three accelerations from the MMA845x accelerometer. The
@@ -214,3 +214,6 @@ class MMA845x:
             diag_str += 'active' if reg1 & 0x01 else 'standby'
 
             return diag_str
+
+if __name__ == "__main__":
+    print(get_ax())

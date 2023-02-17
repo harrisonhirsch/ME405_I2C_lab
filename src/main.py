@@ -38,7 +38,7 @@ def task2_fun(shares):
     """
     # Get references to the share and queue which have been passed to this task
     the_share, the_queue = shares
-    pass
+    yield 0
     # while True:
     #     # Show everything currently in the queue and the value in the share
     #     print(f"Share: {the_share.get ()}, Queue: ", end='')

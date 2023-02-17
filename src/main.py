@@ -23,11 +23,11 @@ def task1_fun(shares):
     @param shares A list holding the share and queue used by this task
     """
     # Get references to the share and queue which have been passed to this task
-    my_share, my_queue = shares
+    my_share, aX_queue = shares
     acler = mma845x.MMA845x(pyb.I2C (1, pyb.I2C.MASTER), 0x1D)
     acler.active()
     while True:
-        my_queue.put(acler.get_ax())
+        aX_queue.put(acler.get_ax())
         yield 0
 
 
@@ -37,9 +37,9 @@ def task2_fun(shares):
     @param shares A tuple of a share and queue from which this task gets data
     """
     # Get references to the share and queue which have been passed to this task
-    the_share, the_queue = shares
+    the_share, aX_queue = shares
     while True:
-        print(the_queue.get())
+        print(aX_queue.get())
         yield 0
     # while True:
     #     # Show everything currently in the queue and the value in the share
@@ -60,17 +60,17 @@ if __name__ == "__main__":
 
     # Create a share and a queue to test function and diagnostic printouts
     share0 = task_share.Share('b', thread_protect=False, name="Share X")
-    q0 = task_share.Queue('L', 16, thread_protect=False, overwrite=False,
-                          name="Queue X")
+    Xaccel_queue = task_share.Queue('L', 16, thread_protect=False, overwrite=False,
+                          name="Queue for aX")
 
     # Create the tasks. If trace is enabled for any task, memory will be
     # allocated for state transition tracing, and the application will run out
     # of memory after a while and quit. Therefore, use tracing only for 
     # debugging and set trace to False when it's not needed
     task1 = cotask.Task(task1_fun, name="Task_1", priority=1, period=500,
-                        profile=True, trace=False, shares=(share0, q0))
+                        profile=True, trace=False, shares=(share0, Xaccel_queue))
     task2 = cotask.Task(task2_fun, name="Task_2", priority=2, period=500,
-                        profile=True, trace=False, shares=(share0, q0))
+                        profile=True, trace=False, shares=(share0, Xaccel_queue))
     cotask.task_list.append(task1)
     cotask.task_list.append(task2)
 

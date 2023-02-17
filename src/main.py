@@ -57,7 +57,7 @@ if __name__ == "__main__":
           "Press Ctrl-C to stop and show diagnostics.")
 
     # Create a share and a queue to test function and diagnostic printouts
-    share_readX = task_share.Share('b', thread_protect=False, name="Share X")
+    share0 = task_share.Share('b', thread_protect=False, name="Share X")
     q0 = task_share.Queue('L', 16, thread_protect=False, overwrite=False,
                           name="Queue X")
 

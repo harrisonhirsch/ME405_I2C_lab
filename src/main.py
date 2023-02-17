@@ -14,6 +14,7 @@ import gc
 import pyb
 import cotask
 import task_share
+import mma845x
 
 
 def task1_fun(shares):
@@ -23,13 +24,10 @@ def task1_fun(shares):
     """
     # Get references to the share and queue which have been passed to this task
     my_share, my_queue = shares
-
-    counter = 0
+    acler = mma845x.MMA845x(pyb.I2C (1, pyb.I2C.MASTER), 0x1D)
+    acler.active()
     while True:
-        my_share.put(counter)
-        my_queue.put(counter)
-        counter += 1
-
+        print(acler.get_accels())
         yield 0
 
 
@@ -40,15 +38,15 @@ def task2_fun(shares):
     """
     # Get references to the share and queue which have been passed to this task
     the_share, the_queue = shares
-
-    while True:
-        # Show everything currently in the queue and the value in the share
-        print(f"Share: {the_share.get ()}, Queue: ", end='')
-        while q0.any():
-            print(f"{the_queue.get ()} ", end='')
-        print('')
-
-        yield 0
+    pass
+    # while True:
+    #     # Show everything currently in the queue and the value in the share
+    #     print(f"Share: {the_share.get ()}, Queue: ", end='')
+    #     while q0.any():
+    #         print(f"{the_queue.get ()} ", end='')
+    #     print('')
+    #
+    #     yield 0
 
 
 # This code creates a share, a queue, and two tasks, then starts the tasks. The
@@ -67,9 +65,9 @@ if __name__ == "__main__":
     # allocated for state transition tracing, and the application will run out
     # of memory after a while and quit. Therefore, use tracing only for 
     # debugging and set trace to False when it's not needed
-    task1 = cotask.Task(task1_fun, name="Task_1", priority=1, period=400,
+    task1 = cotask.Task(task1_fun, name="Task_1", priority=1, period=500,
                         profile=True, trace=False, shares=(share0, q0))
-    task2 = cotask.Task(task2_fun, name="Task_2", priority=2, period=1500,
+    task2 = cotask.Task(task2_fun, name="Task_2", priority=2, period=500,
                         profile=True, trace=False, shares=(share0, q0))
     cotask.task_list.append(task1)
     cotask.task_list.append(task2)

@@ -136,7 +136,7 @@ class MMA845x:
         if self._works:
             reg1 = ord(self.i2c.mem_read(1, self.addr, CTRL_REG1))
             reg1 &= ~0x01
-            self._i2c.mem_write(chr(reg1 & 0xFF), self.addr, CTRL_REG1)
+            self.i2c.mem_write(chr(reg1 & 0xFF), self.addr, CTRL_REG1)
 
     def get_ax_bits(self):
         """! Get the X acceleration from the accelerometer in A/D bits and 

@@ -27,7 +27,7 @@ def task1_fun(shares):
     acler = mma845x.MMA845x(pyb.I2C (1, pyb.I2C.MASTER), 0x1D)
     acler.active()
     while True:
-        print(acler.get_accels())
+        my_queue.put(acler.get_ax())
         yield 0
 
 
@@ -39,6 +39,7 @@ def task2_fun(shares):
     # Get references to the share and queue which have been passed to this task
     the_share, the_queue = shares
     while True:
+        print(the_queue.get())
         yield 0
     # while True:
     #     # Show everything currently in the queue and the value in the share

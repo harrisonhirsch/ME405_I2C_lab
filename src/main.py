@@ -91,7 +91,3 @@ if __name__ == "__main__":
     print(task1.get_trace())
     print('')
 
-# if __name__ == '__main__':
-#     print('I2C')
-#     aye = pyb.I2C(1, pyb.I2C.CONTROLLER)
-#     print(aye.scan())
